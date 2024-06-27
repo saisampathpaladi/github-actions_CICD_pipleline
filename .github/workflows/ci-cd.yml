@@ -28,29 +28,30 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Cloning the code
-      run: git clone https://github.com/saisampathpaladi/to-do-list-cicd.git
-
     - name: Running tests
       run: |
         echo "Running tests"
         # Add your test commands here, e.g.:
         # pytest tests/
         echo "Tests passed"
+      working-directory: ./to-do-list-cicd
 
     - name: Building the code
       run: |
         echo "Building the code"
         docker build -t to-do .
+      working-directory: ./to-do-list-cicd
 
     - name: Pushing the code to Docker Hub
       run: |
         echo "Pushing the code to Docker Hub"
         docker tag to-do ${{ secrets.DOCKERHUB_USERNAME }}/to-do:latest
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/to-do:latest
+      working-directory: ./to-do-list-cicd
 
     - name: Deploying the code
       run: |
         echo "Deploying the code to agents"
         docker-compose down
         docker-compose up -d
+      working-directory: ./to-do-list-cicd
