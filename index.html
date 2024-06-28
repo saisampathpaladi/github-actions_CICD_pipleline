@@ -7,21 +7,37 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+
+        body.dark-mode {
+            background-color: #1c1c1c;
+            color: #fff;
         }
 
         .container {
-            background-color: white;
+            background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
             text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode .container {
+            background-color: #333;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
         h1 {
@@ -49,6 +65,7 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         button:hover {
@@ -69,6 +86,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background-color 0.3s;
         }
 
         li.completed {
@@ -80,14 +98,37 @@
             background-color: #dc3545;
             padding: 5px 10px;
             border-radius: 3px;
+            transition: background-color 0.3s;
         }
 
         button.delete-btn:hover {
             background-color: #c82333;
         }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .mode-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+
+        .mode-toggle:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
-<body>
+<body class="light-mode">
+    <button class="mode-toggle" id="mode-toggle">Switch to Dark Mode</button>
     <div class="container">
         <h1>To-Do List</h1>
         <div class="input-group">
@@ -95,12 +136,17 @@
             <button id="add-task-btn">Add</button>
         </div>
         <ul id="task-list"></ul>
+        <div class="footer">
+            Made by Sampath Sai Paladi
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const taskInput = document.getElementById('new-task');
             const addTaskBtn = document.getElementById('add-task-btn');
             const taskList = document.getElementById('task-list');
+            const modeToggle = document.getElementById('mode-toggle');
+            const body = document.body;
 
             // Function to add a new task
             function addTask() {
@@ -135,6 +181,17 @@
             taskInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     addTask();
+                }
+            });
+
+            // Toggle light/dark mode
+            modeToggle.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    modeToggle.textContent = 'Switch to Light Mode';
+                } else {
+                    modeToggle.textContent = 'Switch to Dark Mode';
                 }
             });
         });
