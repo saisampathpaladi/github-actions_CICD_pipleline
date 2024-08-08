@@ -1,4 +1,4 @@
-my cicd github action page is posted here https://saisampathpaladi.github.io/github-actions_CICD_pipleline/ 
+my github actions CI-CD pipeline web app is posted here https://saisampathpaladi.github.io/github-actions_CICD_pipleline/ 
 # CI/CD Pipeline with GitHub Actions
 
 This repository demonstrates a CI/CD pipeline using GitHub Actions to build, test, and deploy a To-Do List web application. The application is automatically deployed to GitHub Pages.
